@@ -1,63 +1,21 @@
-function _deepObjectOperation(
+const {
+	_deepObjectOperation,
+	_isObject,
+	_deepObjectTraverse,
+} = require('./core.js');
+
+function deepObjectMap(
 	target,
 	callback,
-	depthFirst,
-	pathSoFar = []
+	includeIntermediate = false,
+	depthFirst = false
 ) {
-	function traverseDepth(target, callback, depthFirst, pathSoFar) {
-		for (const [key, value] of Object.entries(target)) {
-			const isObject = _isObject(value);
-			if (isObject) {
-				const path = [...pathSoFar, key];
-				_deepObjectOperation(value, callback, depthFirst, path);
-			}
-		}
-	}
-	function traverseBreadth(target, callback, pathSoFar) {
-		for (const [key, value] of Object.entries(target)) {
-			const isObject = _isObject(value);
-			const path = [...pathSoFar, key];
-			callback(value, key, path, target, isObject);
-		}
-	}
-	if (depthFirst) {
-		traverseDepth(target, callback, depthFirst, pathSoFar);
-		traverseBreadth(target, callback, pathSoFar);
-	} else {
-		traverseBreadth(target, callback, pathSoFar);
-		traverseDepth(target, callback, depthFirst, pathSoFar);
-	}
-}
-
-function _isObject(value) {
-	return (
-		value !== null && typeof value === 'object' && value.constructor === Object
-	);
-}
-
-function deepObjectOperation(target, callback, depthFirst) {
-	_deepObjectOperation(target, callback, depthFirst);
-}
-
-function deepObjectTraverse(target, path) {
-	path = [...path];
-	let step;
-	while ((step = path.shift())) {
-		if (!_isObject(target[step])) {
-			target[step] = {};
-		}
-		target = target[step];
-	}
-	return target;
-}
-
-function deepObjectMap(target, callback, includeIntermediate = false, depthFirst = false) {
 	const result = {};
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
-			const position = deepObjectTraverse(
+			const position = _deepObjectTraverse(
 				result,
 				path.slice(0, path.length - 1)
 			);
@@ -75,12 +33,12 @@ function deepObjectFilter(
 	depthFirst = false
 ) {
 	const result = {};
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
 			if (callback(value, key, path, object, target)) {
-				const position = deepObjectTraverse(
+				const position = _deepObjectTraverse(
 					result,
 					path.slice(0, path.length - 1)
 				);
@@ -99,7 +57,7 @@ function deepObjectFind(
 	depthFirst = false
 ) {
 	let foundValue;
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (foundValue !== undefined) return;
@@ -119,7 +77,10 @@ function deepObjectSome(
 	includeIntermediate = false,
 	depthFirst = false
 ) {
-	return undefined !== deepObjectFind(target, callback, includeIntermediate, depthFirst);
+	return (
+		undefined !==
+		deepObjectFind(target, callback, includeIntermediate, depthFirst)
+	);
 }
 
 function deepObjectEvery(
@@ -129,7 +90,7 @@ function deepObjectEvery(
 	depthFirst = false
 ) {
 	let every = true;
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (!every) return;
@@ -147,7 +108,7 @@ function deepObjectForEach(
 	includeIntermediate = false,
 	depthFirst = false
 ) {
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
@@ -157,9 +118,13 @@ function deepObjectForEach(
 	);
 }
 
-function deepObjectValues(target, includeIntermediate = false, depthFirst = false) {
+function deepObjectValues(
+	target,
+	includeIntermediate = false,
+	depthFirst = false
+) {
 	const values = [];
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
@@ -170,9 +135,13 @@ function deepObjectValues(target, includeIntermediate = false, depthFirst = fals
 	return values;
 }
 
-function deepObjectPaths(target, includeIntermediate = false, depthFirst = false) {
+function deepObjectPaths(
+	target,
+	includeIntermediate = false,
+	depthFirst = false
+) {
 	const paths = [];
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
@@ -183,9 +152,13 @@ function deepObjectPaths(target, includeIntermediate = false, depthFirst = false
 	return paths;
 }
 
-function deepObjectKeys(target, includeIntermediate = false, depthFirst = false) {
+function deepObjectKeys(
+	target,
+	includeIntermediate = false,
+	depthFirst = false
+) {
 	const keys = [];
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
@@ -196,9 +169,13 @@ function deepObjectKeys(target, includeIntermediate = false, depthFirst = false)
 	return keys;
 }
 
-function deepObjectEntries(target, includeIntermediate = false, depthFirst = false) {
+function deepObjectEntries(
+	target,
+	includeIntermediate = false,
+	depthFirst = false
+) {
 	const entries = [];
-	deepObjectOperation(
+	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
 			if (isObject && !includeIntermediate) return;
