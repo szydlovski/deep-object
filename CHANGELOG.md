@@ -1,5 +1,12 @@
 # Changelog
 
+
+## 0.2.1 - 2020-12-20
+
+### Fixed
+
+- Incorrect argument order in callback documentation.
+
 ## 0.2.0 - 2020-12-20
 
 ### Added

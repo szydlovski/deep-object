@@ -150,8 +150,8 @@ This library implements most of the built in JavaScript array methods adapted fo
 
 In addition, `forEach`, `map`, `filter`, `find`, `some` and `every` take as the second argument:
 - `callback` - function, required. Callbacks are called with the following arguments:
-  - `key` - shallow property name
   - `value` - property value
+  - `key` - shallow property name
   - `path` - an array of property names leading to the current property
   - `nestedObject` - the nested object containing the current property
   - `targetObject` - the original target object

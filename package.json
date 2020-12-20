@@ -1,6 +1,6 @@
 {
   "name": "@szydlovski/deep-object",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "utility functions for deeply nested objects",
   "main": "src/index.js",
   "scripts": {
