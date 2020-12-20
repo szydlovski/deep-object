@@ -1,0 +1,17 @@
+{
+  "name": "@szydlovski/deep-object",
+  "version": "0.1.0",
+  "description": "utility functions for deeply nested objects",
+  "main": "src/deep-object.js",
+  "scripts": {
+    "test": "nyc mocha test/index.test.js"
+  },
+  "keywords": ["deep object", "nested object", "dotpath"],
+  "author": "Kamil Szydlowski",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0"
+  }
+}
