@@ -249,18 +249,20 @@ Without `includeIntermediate === true` the property `bar` is ignored.
 ```javascript
 const targetObject = {
   foo: 'depth 0',
-  bar: {
-		bar: {
-			bar: {
-				foo: 'depth 3'
-			}
-		}
-	}
+    bar: {
+      bar: {
+        bar: {
+          foo: 'depth 3'
+        }
+    }
+  }
 }
 
 const testFunction = (value, key) => key === 'foo';
 
+// breadth first
 deepObject.find(targetObject, testFunction); => "depth 0"
+// depth first
 deepObject.find(targetObject, testFunction, false, true); => "depth 3"
 ```
 
