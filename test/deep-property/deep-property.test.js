@@ -1,13 +1,13 @@
-const { expect } = require('chai');
-const {
+import chai from 'chai';
+const { expect } = chai;
+import {
 	setDeepProperty,
 	getDeepProperty,
 	hasDeepProperty,
-	extractDeepProperty,
-	DeepPropertyError,
-} = require('../../src/deep-property.js');
+	extractDeepProperty
+}  from '../../src/deep-property.js';
 
-const getTestCases = require('./cases.test.js');
+import getTestCases  from './cases.test.js';
 
 describe('extractDeepProperty', function () {
 	it('returns [true, value] for existing property paths', function () {

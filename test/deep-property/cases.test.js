@@ -1,4 +1,4 @@
-module.exports = () => {
+export default () => {
 	const dataObject = {
 		firstName: 'John',
 		lastName: 'Doe',

@@ -1,8 +1,8 @@
-const {
+import {
 	_deepObjectOperation,
 	_isObject,
 	_deepObjectTraverse,
-} = require('./core.js');
+} from './core.js';
 
 function deepObjectMap(
 	target,
@@ -186,7 +186,7 @@ function deepObjectEntries(
 	return entries;
 }
 
-module.exports = {
+export {
 	deepObjectForEach,
 	deepObjectMap,
 	deepObjectFilter,
@@ -197,14 +197,14 @@ module.exports = {
 	deepObjectPaths,
 	deepObjectKeys,
 	deepObjectEntries,
-	forEach: deepObjectForEach,
-	map: deepObjectMap,
-	filter: deepObjectFilter,
-	find: deepObjectFind,
-	some: deepObjectSome,
-	every: deepObjectEvery,
-	values: deepObjectValues,
-	paths: deepObjectPaths,
-	keys: deepObjectKeys,
-	entries: deepObjectEntries,
+	deepObjectForEach as forEach,
+	deepObjectMap as map,
+	deepObjectFilter as filter,
+	deepObjectFind as find,
+	deepObjectSome as some,
+	deepObjectEvery as every,
+	deepObjectValues as values,
+	deepObjectPaths as paths,
+	deepObjectKeys as keys,
+	deepObjectEntries as entries,
 };

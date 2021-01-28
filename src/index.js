@@ -1,7 +1,2 @@
-const deepObject = require('./deep-object.js')
-const deepProperty = require('./deep-property.js')
-
-module.exports = {
-	...deepObject,
-	...deepProperty
-}
+export * from './deep-object.js';
+export * from './deep-property.js';

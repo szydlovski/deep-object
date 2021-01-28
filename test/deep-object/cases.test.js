@@ -43,7 +43,7 @@ function buildDeepObjectEntries(keys, values, paths) {
   return keys.map((key, index) => [key, values[index], paths[index]]);
 }
 
-module.exports = {
+export {
   testObject, testObjectTotalLength,
   testObjectValues, testObjectValuesDepthFirst,
   testObjectKeys, testObjectKeysDepthFirst,

@@ -1,13 +1,14 @@
-const { expect } = require('chai');
-const deepObject = require('../../src/deep-object.js');
+import chai from 'chai';
+const { expect } = chai;
+import * as deepObject from '../../src/deep-object.js';
 
-const {
+import {
   testObject, testObjectTotalLength,
   testObjectValues, testObjectValuesDepthFirst,
   testObjectKeys, testObjectKeysDepthFirst,
   testObjectPaths, testObjectPathsDepthFirst,
   testObjectEntries, testObjectEntriesDepthFirst
-} = require('./cases.test.js');
+} from './cases.test.js';
 
 describe('deepObjectForEach', function () {
 	it('executes a provided function once for each nested property', function () {

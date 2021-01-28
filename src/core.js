@@ -1,4 +1,4 @@
-function _deepObjectOperation(
+export function _deepObjectOperation(
 	target,
 	callback,
 	depthFirst,
@@ -29,13 +29,13 @@ function _deepObjectOperation(
 	}
 }
 
-function _isObject(value) {
+export function _isObject(value) {
 	return (
 		value !== null && typeof value === 'object' && value.constructor === Object
 	);
 }
 
-function _deepObjectTraverse(target, path, create = true) {
+export function _deepObjectTraverse(target, path, create = true) {
 	path = [...path];
 	let step;
 	while ((step = path.shift())) {
@@ -46,10 +46,4 @@ function _deepObjectTraverse(target, path, create = true) {
 		target = target[step];
 	}
 	return target;
-}
-
-module.exports = {
-  _deepObjectOperation,
-  _isObject,
-  _deepObjectTraverse
 }
