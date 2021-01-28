@@ -4,14 +4,21 @@
   "description": "utility functions for deeply nested objects",
   "main": "src/index.js",
   "scripts": {
-    "test": "nyc mocha test/index.test.js"
+    "test": "c8 mocha test/index.test.js"
   },
-  "keywords": ["deep object", "nested object", "dotpath", "deep property", "deep key"],
+  "keywords": [
+    "deep object",
+    "nested object",
+    "dotpath",
+    "deep property",
+    "deep key"
+  ],
+  "type": "module",
   "author": "Kamil Szydlowski",
   "license": "MIT",
   "devDependencies": {
+    "c8": "^7.4.0",
     "chai": "^4.2.0",
-    "mocha": "^8.2.1",
-    "nyc": "^15.1.0"
+    "mocha": "^8.2.1"
   }
 }
