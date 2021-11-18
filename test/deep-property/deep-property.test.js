@@ -5,7 +5,7 @@ import {
 	getDeepProperty,
 	hasDeepProperty,
 	extractDeepProperty
-}  from '../../src/deep-property.js';
+}  from '../../build/deep-property.js';
 
 import getTestCases  from './cases.test.js';
 
@@ -35,6 +35,11 @@ describe('extractDeepProperty', function () {
 		expect(exists).to.be.true;
 		expect(value).to.equal(undefined);
 	});
+	it('throws on empty paths', function() {
+		expect(function() {
+			extractDeepProperty({}, []);
+		}).to.throw(TypeError, 'Cannot extract deep property from an empty path')
+	})
 	it('throws an error if the path argument is not an array or a string', function() {
 		expect(function() {
 			extractDeepProperty({}, 1);
@@ -115,4 +120,9 @@ describe('setDeepProperty', function () {
     const returnedObject = setDeepProperty(objectToModify, keyPath, 'some value');
     expect(returnedObject).to.equal(objectToModify);
   })
+	it('throws on empty paths', function() {
+		expect(function() {
+			setDeepProperty({}, []);
+		}).to.throw(TypeError, 'Cannot set deep property on an empty path')
+	})
 });

@@ -1,9 +1,12 @@
 {
   "name": "@szydlovski/deep-object",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "utility functions for deeply nested objects",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "scripts": {
+    "build": "tsc",
+    "pretest": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "c8 mocha test/index.test.js"
   },
   "keywords": [

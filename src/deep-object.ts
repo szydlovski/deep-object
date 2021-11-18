@@ -2,14 +2,17 @@ import {
 	_deepObjectOperation,
 	_isObject,
 	_deepObjectTraverse,
+	StringIndexed,
 } from './core.js';
 
-function deepObjectMap(
-	target,
-	callback,
+type DeepObjectCallback<T> = (value: any, key: string, path: string[], object: object, target: object) => T;
+
+function deepObjectMap<T = StringIndexed>(
+	target: StringIndexed,
+	callback: DeepObjectCallback<any>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
+): T {
 	const result = {};
 	_deepObjectOperation(
 		target,
@@ -23,15 +26,15 @@ function deepObjectMap(
 		},
 		depthFirst
 	);
-	return result;
+	return result as T;
 }
 
-function deepObjectFilter(
-	target,
-	callback,
+function deepObjectFilter<T = StringIndexed>(
+	target: StringIndexed,
+	callback: DeepObjectCallback<boolean>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
+): T {
 	const result = {};
 	_deepObjectOperation(
 		target,
@@ -47,16 +50,16 @@ function deepObjectFilter(
 		},
 		depthFirst
 	);
-	return result;
+	return result as T;
 }
 
-function deepObjectFind(
-	target,
-	callback,
+function deepObjectFind<T = any>(
+	target: StringIndexed,
+	callback: DeepObjectCallback<boolean>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
-	let foundValue;
+): T | undefined {
+	let foundValue: T | undefined = undefined;
 	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
@@ -72,11 +75,11 @@ function deepObjectFind(
 }
 
 function deepObjectSome(
-	target,
-	callback,
+	target: StringIndexed,
+	callback: DeepObjectCallback<boolean>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
+): boolean {
 	return (
 		undefined !==
 		deepObjectFind(target, callback, includeIntermediate, depthFirst)
@@ -84,11 +87,11 @@ function deepObjectSome(
 }
 
 function deepObjectEvery(
-	target,
-	callback,
+	target: StringIndexed,
+	callback: DeepObjectCallback<boolean>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
+): boolean {
 	let every = true;
 	_deepObjectOperation(
 		target,
@@ -103,11 +106,11 @@ function deepObjectEvery(
 }
 
 function deepObjectForEach(
-	target,
-	callback,
+	target: StringIndexed,
+	callback: DeepObjectCallback<void>,
 	includeIntermediate = false,
 	depthFirst = false
-) {
+): void {
 	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
@@ -118,12 +121,12 @@ function deepObjectForEach(
 	);
 }
 
-function deepObjectValues(
-	target,
+function deepObjectValues<T extends any[] = any[]>(
+	target: StringIndexed,
 	includeIntermediate = false,
 	depthFirst = false
-) {
-	const values = [];
+): T {
+	const values: any[] = [];
 	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {
@@ -132,18 +135,14 @@ function deepObjectValues(
 		},
 		depthFirst
 	);
-	return values;
+	return values as T;
 }
 
-function deepObjectPaths(
-	target,
-	includeIntermediate = false,
-	depthFirst = false
-) {
-	const paths = [];
+function deepObjectPaths(target: StringIndexed, includeIntermediate = false, depthFirst = false): string[][] {
+	const paths: string[][] = [];
 	_deepObjectOperation(
 		target,
-		(value, key, path, object, isObject) => {
+		(_1, _2, path, _3, isObject) => {
 			if (isObject && !includeIntermediate) return;
 			paths.push(path);
 		},
@@ -152,29 +151,23 @@ function deepObjectPaths(
 	return paths;
 }
 
-function deepObjectKeys(
-	target,
-	includeIntermediate = false,
-	depthFirst = false
-) {
-	const keys = [];
-	_deepObjectOperation(
-		target,
-		(value, key, path, object, isObject) => {
-			if (isObject && !includeIntermediate) return;
-			keys.push(key);
-		},
+function deepObjectKeys(target: StringIndexed, includeIntermediate = false, depthFirst = false): string[] {
+	const keys: string[] = [];
+	_deepObjectOperation(target, (_1, key, _2, _3, isObject) => {
+		if (isObject && !includeIntermediate) return;
+		keys.push(key);
+	},
 		depthFirst
 	);
 	return keys;
 }
 
 function deepObjectEntries(
-	target,
+	target: StringIndexed,
 	includeIntermediate = false,
 	depthFirst = false
-) {
-	const entries = [];
+): [string, any, string[]][] {
+	const entries: [string, any, string[]][] = [];
 	_deepObjectOperation(
 		target,
 		(value, key, path, object, isObject) => {

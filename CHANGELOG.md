@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 1.0.0 - 2021-10-20
+
+### Improvements
+
+- Added TypeScript typings.
+  
 ## 0.2.2 - 2020-12-21
 
 ### Fixed

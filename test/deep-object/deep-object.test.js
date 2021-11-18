@@ -1,6 +1,6 @@
 import chai from 'chai';
 const { expect } = chai;
-import * as deepObject from '../../src/deep-object.js';
+import * as deepObject from '../../build/deep-object.js';
 
 import {
   testObject, testObjectTotalLength,
